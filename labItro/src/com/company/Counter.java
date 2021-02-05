@@ -6,8 +6,8 @@ import java.util.*;
 
 public class Counter {
 
-    private Map<String, Integer> counterMap; // <key, value>
-    private List<Map.Entry<String, Integer>> listToSort;
+    private Map<String, Integer> counterMap = new HashMap<>(); // <key, value>
+    private List<Map.Entry<String, Integer>> listToSort = new LinkedList<>();
     private int totalOfWords;
 
     private void addWordInMap(StringBuilder myString) {
@@ -27,25 +27,28 @@ public class Counter {
 
     public void ReadInput() throws IOException {
 
-        Reader reader = null;
+        Reader reader = new InputStreamReader(new FileInputStream("input.txt"));
 
-        reader = new InputStreamReader(new FileInputStream("input.txt"));
-
-        int currentSymbol = 0;
+        int readedSymbol = 0;
+        char currentSymbol = 0;
         StringBuilder myString = new StringBuilder();
 
         while (true) {
-            currentSymbol = reader.read();
+            readedSymbol = reader.read();
 
-            if (currentSymbol == -1) { // reader.read() = -1, if input was ended
+            if (readedSymbol == -1) { // reader.read() = -1, if input was ended
                 addWordInMap(myString);
                 break;
             }
 
+            currentSymbol = (char) readedSymbol;
+
             if (Character.isLetterOrDigit(currentSymbol))
                 myString.append(currentSymbol);
-            else
+            else {
                 addWordInMap(myString);
+                myString = new StringBuilder(); // delete current word in buffer
+            }
         }
         reader.close();
     }
