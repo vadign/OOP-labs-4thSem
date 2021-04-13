@@ -1,0 +1,6 @@
+desc
+1 = readfile src/com/nsu/ccfit/in_file.txt
+2 = writefile src/com/nsu/ccfit/out_file.txt
+5 = grep vadim
+csed
+1 -> 5 -> 2
