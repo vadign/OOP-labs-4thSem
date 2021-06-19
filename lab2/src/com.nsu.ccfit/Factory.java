@@ -22,9 +22,16 @@ public class Factory {
     }
 
     public static Factory getInstance() throws IOException {
+
+
         if (myFactory == null) {
-                myFactory = new Factory();
+            synchronized (Factory.class){
+                if(myFactory == null){
+                    myFactory = new Factory();
+                }
+            }
         }
+
         return myFactory;
     }
 
